@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <script src="./assets/javascript/game.js"></script>
+    <title>Word Guess Game</title>
+</head>
+
+<body>
+
+
+
+    <h1>Word Guess Game</h1>
+    <div id="answer"> answer</div>
+    <div id="numberGuesses"> </div>
+
+    <script type="text/javascript">
+        var con = console.log;
+        var wordCHoices = ["madonna", "michael jackson", "george michael"];
+        var randomChoice = wordCHoices[Math.floor(Math.random() * wordCHoices.length)];
+        var getID = document.getElementById;
+        var answer = [];
+        //var matchWord = wordCHoices.includes(userInput);
+
+        function blankValues() {
+            // TODO: Turn this into a function that can reset all values
+            //create blank spaces
+            for (var i = 0; i < randomChoice.length; i++) {
+                answer[i] = "_";
+            }
+            //join the answer array and show it.
+            document.getElementById("answer").innerHTML = answer.join(" ");
+        }
+
+        blankValues();
+
+        // USER INPUT
+        document.onkeyup = function (event) {
+
+            //get user input
+            var userInput = event.key;
+
+            //get each random choice letter and test against it
+            for (var i = 0; i < randomChoice.length; i++) {
+                // console.log(randomChoice[i]);
+
+                if (userInput === randomChoice[i]) {
+                    // find out what letter was pressed and occupy that space
+                   var indexRandomChoice = randomChoice.indexOf(randomChoice[i]);
+                   console.log("this is the index of random choice" + indexRandomChoice);
+                    answer = answer[indexRandomChoice];
+                    con("this is the output of the answer array" + answer);
+                }
+
+            }
+
+
+        }
+            // find if the letter that was input is part of a word choice
+            // if (userInput === randomChoice.includes(userInput)) {
+            //     con(userInput);
+            //     con("You've matched a word!!")
+            //     con(userInput);
+            //     getID("guesses").innerHTML = userInput + ", ";
+            // }
+
+    </script>
+
+</body>
+
+</html>
