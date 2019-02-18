@@ -17,14 +17,15 @@
 
     <h1>Word Guess Game</h1>
     <div id="answer"> answer</div>
-    <div id="numberGuesses"> </div>
+    <div id="badGuesses"> </div>
 
     <script type="text/javascript">
-        var con = console.log;
+       
         var wordCHoices = ["madonna", "michael jackson", "george michael"];
         var randomChoice = wordCHoices[Math.floor(Math.random() * wordCHoices.length)];
         var getID = document.getElementById;
         var answer = [];
+        var badGuesses = [];
         //var matchWord = wordCHoices.includes(userInput);
 
         function blankValues() {
@@ -49,26 +50,38 @@
             for (var i = 0; i < randomChoice.length; i++) {
                 // console.log(randomChoice[i]);
 
+           /*//This code works but only displays one character even if there are two.
+            console.log(randomChoice.includes(userInput));
+                if (randomChoice.includes(userInput)){
+                    var indexOfUserInput = randomChoice.indexOf(userInput);
+
+                    answer[indexOfUserInput] = userInput;
+                    document.getElementById("answer").innerHTML = answer.join(" ");
+                    console.log (randomChoice);
+                }*/
+            
+            
                 if (userInput === randomChoice[i]) {
                     // find out what letter was pressed and occupy that space
-                   var indexRandomChoice = randomChoice.indexOf(randomChoice[i]);
-                   console.log("this is the index of random choice" + indexRandomChoice);
-                    answer = answer[indexRandomChoice];
-                    con("this is the output of the answer array" + answer);
+
+                    console.log("This is the user input in the good guess: " + userInput);
+                    answer[i] = userInput; //got this to work but don't know why.  Ask questions.
+                    document.getElementById("answer").innerHTML = answer.join(" ");
+                    //document.getElementById("answer").innerHTML = answer.push(answer);
                 }
 
+                //if the user input is wrong, start marking the bad guesses.
+                else if (userInput !== randomChoice[i]){
+                    console.log("This is the user input in the bad guess: " + userInput);
+                    badGuesses.push(userInput);
+                   
+                    document.getElementById("badGuesses").innerHTML = badGuesses; 
+                }
+
+            
             }
 
-
         }
-            // find if the letter that was input is part of a word choice
-            // if (userInput === randomChoice.includes(userInput)) {
-            //     con(userInput);
-            //     con("You've matched a word!!")
-            //     con(userInput);
-            //     getID("guesses").innerHTML = userInput + ", ";
-            // }
-
     </script>
 
 </body>
