@@ -50,7 +50,7 @@
             for (var i = 0; i < randomChoice.length; i++) {
                 // console.log(randomChoice[i]);
 
-           /*//This code works but only displays one character even if there are two.
+           /*//This code works but only displays one character even if there are two in the word.
             console.log(randomChoice.includes(userInput));
                 if (randomChoice.includes(userInput)){
                     var indexOfUserInput = randomChoice.indexOf(userInput);
@@ -67,11 +67,10 @@
                     console.log("This is the user input in the good guess: " + userInput);
                     answer[i] = userInput; //got this to work but don't know why.  Ask questions.
                     document.getElementById("answer").innerHTML = answer.join(" ");
-                    //document.getElementById("answer").innerHTML = answer.push(answer);
                 }
 
                 //if the user input is wrong, start marking the bad guesses.
-                else if (userInput !== randomChoice[i]){
+                else {
                     console.log("This is the user input in the bad guess: " + userInput);
                     badGuesses.push(userInput);
                    
