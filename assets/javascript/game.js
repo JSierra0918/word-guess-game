@@ -10,15 +10,14 @@ function blankValues() {
     //create blank spaces
     for (var i = 0; i < randomChoice.length; i++) {
         answer[i] = "_";
-        badGuesses[i] = " ";
+
 
     }
     // reset variables
     lives = 10;
 
-    //join the answer array and show it.
+    //Print to the DOM
     document.getElementById("answer").innerHTML = answer.join(" ");
-    document.getElementById("badGuesses").innerHTML = badGuesses.join(" ");
     document.getElementById("lives").innerHTML = lives;
 
 
@@ -31,27 +30,27 @@ document.onkeyup = function (event) {
 
     //get user input
     var userInput = event.key;
-    var randomChoiceArray = Array.from(randomChoice);
-    //get each random choice letter and test against it
 
-
+    // is correct function
     var rightLetter = function (letter) {
 
 
         console.log("this is randomChoice[i] " + randomChoice[i]);
         console.log("this is letter " + letter);
-        answer[i] = letter;
+        // answer[i] = letter;
         document.getElementById("answer").innerHTML = answer.join(" ");
 
     }
 
+    //is wrong function
+
     var wrongLetter = function (letter) {
 
         // badGuesses.push(randomChoice[i]);
-        
+
         console.log("this is bad randomChoice[i] " + randomChoice[i]);
         console.log("this is bad letter " + letter);
-        badGuesses[i] = letter;
+        badGuesses.push(letter);
         document.getElementById("badGuesses").innerHTML = badGuesses.join(" ");
 
         // update lives and display
@@ -64,16 +63,33 @@ document.onkeyup = function (event) {
     }
 
 
+    var isCorrect = false;
+    //looking for the position of every letter
     for (var i = 0; i < randomChoice.length; i++) {
-
+      
+        //if the position of the letter matches an input of the user, take that input and pass it on to answer array
         if (userInput === randomChoice[i]) {
-            rightLetter(userInput);
-        }
-
-        if (userInput !== randomChoice[i]) {
-            wrongLetter(userInput);
+            isCorrect = true;
         }
     }
+
+    if (isCorrect === true) {
+        for (var i = 0; i < randomChoice[i]; i++) {
+            if (userInput === randomChoice[i]) {
+                console.log("entered true statement here is the user input: " + userInput);
+                answer[i] = userInput;
+                document.getElementById("answer").innerHTML = answer.join(" ");
+                console.log("Inside the true statement: " + userInput);
+            }
+        }
+
+    } else {
+
+        wrongLetter(userInput);
+    }
+
+
+
 
 
 
