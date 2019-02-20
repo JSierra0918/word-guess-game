@@ -2,7 +2,7 @@ var wordCHoices = ["madonna", "michael jackson", "george michael"];
 var randomChoice = wordCHoices[Math.floor(Math.random() * wordCHoices.length)];
 var answer = [];
 var badGuesses = [];
-var lives = 10;
+var lives;
 //var matchWord = wordCHoices.includes(userInput);
 
 function blankValues() {
@@ -10,10 +10,15 @@ function blankValues() {
     //create blank spaces
     for (var i = 0; i < randomChoice.length; i++) {
         answer[i] = "_";
+        badGuesses[i] = " ";
 
     }
+    // reset variables
+    lives = 10;
+
     //join the answer array and show it.
     document.getElementById("answer").innerHTML = answer.join(" ");
+    document.getElementById("badGuesses").innerHTML = badGuesses.join(" ");
     document.getElementById("lives").innerHTML = lives;
 
 
@@ -30,53 +35,50 @@ document.onkeyup = function (event) {
     //get each random choice letter and test against it
 
 
+    var rightLetter = function (letter) {
 
-    if (userInput === randomChoiceArray) {
 
-        answer[userInput] = randomChoice.indexOf(userInput);
-        console.log(answer);
+        console.log("this is randomChoice[i] " + randomChoice[i]);
+        console.log("this is letter " + letter);
+        answer[i] = letter;
+        document.getElementById("answer").innerHTML = answer.join(" ");
 
-        document.getElementById("word").innerHTML = answer;
-        document.getElementById("word").style.backgroundColor = "red";
     }
+
+    var wrongLetter = function (letter) {
+
+        // badGuesses.push(randomChoice[i]);
+        
+        console.log("this is bad randomChoice[i] " + randomChoice[i]);
+        console.log("this is bad letter " + letter);
+        badGuesses[i] = letter;
+        document.getElementById("badGuesses").innerHTML = badGuesses.join(" ");
+
+        // update lives and display
+        --lives;
+        document.getElementById("lives").innerHTML = lives;
+
+        if (lives === 0) {
+            alert("You have lost!");
+        }
+    }
+
 
     for (var i = 0; i < randomChoice.length; i++) {
 
-        var isWord = false;
-        //This code works but only displays one character even if there are two in the word.
-        /*console.log(randomChoice.includes(userInput));
-            if (randomChoice.includes(userInput)){
-                var indexOfUserInput = randomChoice.indexOf(userInput);
-
-                answer[indexOfUserInput] = userInput;
-                document.getElementById("answer").innerHTML = answer.join(" ");
-                console.log (randomChoice);
-            }*/
-
-        //if (userInput === randomChoice[i])
         if (userInput === randomChoice[i]) {
-            // find out what letter was pressed and occupy that space
-
-            console.log("This is the user input in the good guess: " + userInput);
-            answer[i] = userInput; //got this to work but don't know why.  Ask questions.
-            document.getElementById("answer").innerHTML = answer.join(" ");
-
+            rightLetter(userInput);
         }
 
-        //if the user input is wrong, start marking the bad guesses.
-        else {
-            console.log("This is the user input in the bad guess: " + userInput);
-
-            badGuesses.push(userInput);
-            document.getElementById("badGuesses").innerHTML = badGuesses.join(" ");
-            --lives;
-            document.getElementById("lives").innerHTML = lives;
-            if (lives === 0) {
-                alert("You have lost!");
-            }
+        if (userInput !== randomChoice[i]) {
+            wrongLetter(userInput);
         }
-
-        /* CREATE A FUNCTION THAT HANDLES FOR LOOP CHECK OF LETTERS*/
     }
+
+
+
+
+    /* CREATE A FUNCTION THAT HANDLES FOR LOOP CHECK OF LETTERS*/
+
 
 }
