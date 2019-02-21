@@ -6,13 +6,14 @@ var lives;
 //var matchWord = wordCHoices.includes(userInput);
 
 function blankValues() {
+
     // TODO: Turn this into a function that can reset all values
     //create blank spaces
     for (var i = 0; i < randomChoice.length; i++) {
+
         answer[i] = "_";
-
-
     }
+
     // reset variables
     lives = 10;
 
@@ -63,32 +64,22 @@ document.onkeyup = function (event) {
     }
 
 
-    var isCorrect = false;
     //looking for the position of every letter
-    for (var i = 0; i < randomChoice.length; i++) {
-      
-        //if the position of the letter matches an input of the user, take that input and pass it on to answer array
+
+    for (var i = 0; i < randomChoice[i]; i++) {
         if (userInput === randomChoice[i]) {
-            isCorrect = true;
+            
+            console.log("entered true statement here is the user input: " + userInput);
+            answer[i] = userInput;
+            document.getElementById("answer").innerHTML = answer.join(" ");
+            console.log("Inside the true statement: " + userInput);
+        } else {
+            console.log("Wrong");
         }
     }
 
-    if (isCorrect === true) {
-        for (var i = 0; i < randomChoice[i]; i++) {
-            if (userInput === randomChoice[i]) {
-                console.log("entered true statement here is the user input: " + userInput);
-                answer[i] = userInput;
-                document.getElementById("answer").innerHTML = answer.join(" ");
-                console.log("Inside the true statement: " + userInput);
-            }
-        }
 
-    } else {
-
-        wrongLetter(userInput);
-    }
-
-
+    wrongLetter(userInput);
 
 
 
