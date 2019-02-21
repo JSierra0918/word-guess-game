@@ -1,7 +1,22 @@
 /*---------Global Variables ------------*/
 
-var wordCHoices = ["madonna", "michael jackson", "george michael"];
-var randomChoice = wordCHoices[Math.floor(Math.random() * wordCHoices.length)];
+var wordCHoices = ["Tetris",
+    "Super Mario Bros",
+    "SimCity",
+    "Super Mario Bros ",
+    "Donkey Kong",
+    "Defender",
+    "The Legend of Zelda",
+    "Tempest",
+    "Metroid",
+    "Prince of Persia",
+    "R Type",
+    "Mega Man",
+    "Pac Man",
+    "Boulder Dash",
+    "Contra"
+];
+var randomChoice = wordCHoices[Math.floor(Math.random() * wordCHoices.length)].toLowerCase();
 var answer = [];
 var badGuesses = [];
 var lives;
@@ -14,7 +29,12 @@ function blankValues() {
     //create blank spaces
     for (var i = 0; i < randomChoice.length; i++) {
 
-        answer[i] = "_";
+        if (randomChoice[i] === " "){
+            answer[i] = " ";
+        }else {
+            answer[i] = "_";
+        }
+        
     }
 
     // reset variables
@@ -26,7 +46,7 @@ function blankValues() {
 }
 
 /*--------- User is correct function ------------*/
-var rightLetter = function () {
+var rightLetter = function (letter) {
 
 }
 
@@ -57,15 +77,28 @@ var wrongLetter = function (letter) {
     }
 }
 
+/*----------Audio Function Area ------------*/
+function bgMusic(music) {
+    var randomMusic = new Audio();
+    var test = "assets/audio/" + music + ".mp3"
+    console.log(test);
+
+    // /"assets/audio/"+music+".mp3"
+
+}
+
+
+
 /*----------call Function Area ------------*/
 
 blankValues();
+bgMusic(randomChoice);
 
 /*--------- one key up Function ------------*/
 document.onkeyup = function (event) {
 
     //get user input
-    var userInput = event.key;
+    var userInput = event.key.toLowerCase();
     var userInputKeyCode = event.keyCode;
 
     // check to see if the user input a character from A-Z
@@ -79,17 +112,24 @@ document.onkeyup = function (event) {
         //index of every letter
         for (var i = 0; i < randomChoice.length; i++) {
             if (userInput === randomChoice[i]) {
+
                 found = true;
-                console.log("entered true statement here is the user input: " + userInput);
+                //console.log("entered true statement here is the user input: " + userInput);
                 answer[i] = userInput;
                 document.getElementById("answer").innerHTML = answer.join(" ");
-                console.log("Inside the true statement: " + userInput);
+                //console.log("Inside the true statement: " + userInput);
             }
         }
 
+        //user is wrong
         if (!found) {
             wrongLetter(userInput);
         }
+
+        //Check to see if the user has completed the word
+        //This works, but can't remove underscore
+        console.log(answer.join("") + " randomchoice is " + randomChoice);
+
     }
 
 }
