@@ -48,7 +48,7 @@ var wrongLetter = function (letter) {
     // update lives and display
     --lives;
     document.getElementById("lives").innerHTML = lives;
-    
+
     // if lives == 0 then game is over and reset value
     if (lives === 0) {
         alert("You have lost!");
@@ -66,23 +66,30 @@ document.onkeyup = function (event) {
 
     //get user input
     var userInput = event.key;
+    var userInputKeyCode = event.keyCode;
 
-    //create a boolean to stop the wrongLetter function for continously looping
-    var found = false;
+    // check to see if the user input a character from A-Z
+    if (userInputKeyCode > 90 || userInputKeyCode < 57) {
+        alert("Please press a key of A-Z");
+    } else {
 
-    //index of every letter
-    for (var i = 0; i < randomChoice.length; i++) {
-        if (userInput === randomChoice[i]) {
-            found = true;
-            console.log("entered true statement here is the user input: " + userInput);
-            answer[i] = userInput;
-            document.getElementById("answer").innerHTML = answer.join(" ");
-            console.log("Inside the true statement: " + userInput); 
+        //create a boolean to stop the wrongLetter function for continously looping
+        var found = false;
+
+        //index of every letter
+        for (var i = 0; i < randomChoice.length; i++) {
+            if (userInput === randomChoice[i]) {
+                found = true;
+                console.log("entered true statement here is the user input: " + userInput);
+                answer[i] = userInput;
+                document.getElementById("answer").innerHTML = answer.join(" ");
+                console.log("Inside the true statement: " + userInput);
+            }
         }
-    }
 
-    if (!found) {
-        wrongLetter(userInput);
+        if (!found) {
+            wrongLetter(userInput);
+        }
     }
 
 }

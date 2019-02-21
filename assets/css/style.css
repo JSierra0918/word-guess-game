@@ -1,8 +1,10 @@
 body {
     font-family: 'Press Start 2P', cursive;
     font-size: 16px;
-    color: #14fd6d;
+    /* color: #14fd6d; */
+    color: #66dc93;
     background-color: #031e11;
+    
 }
 
 .container {
@@ -10,10 +12,68 @@ body {
 }
 
 h1 {
-    font-size: 5rem;
+    font-size: 5vh;
+    padding: 20px;
 }
 
 .title {
  text-align: center;
  margin-top: 5vh;
+ 
 }
+
+.info-text {
+    text-align: center;
+}
+
+.wrapper {
+    width: 80vw;
+    height: auto;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20vh;
+}
+
+.answer {
+    position: relative;
+    box-sizing: border-box;
+    font-size: 3rem;
+    width: 100%;
+    white-space: nowrap;
+}
+
+.bad-guesses {
+    font-size: 3vh;
+    margin-top: 15vh;
+    color: rgba(255, 0, 0, 0.5);
+}
+
+.warningMessage{
+    
+    text-align: center;
+    position: absolute;
+    width: 80%;
+    left: 50%;
+    bottom: 160px;
+    transform: translateX(-50%);
+    
+}
+
+.warningMessage h6 {
+    
+    height: 100%;
+    font-size: 1rem;
+    background: #5fd189;
+    color: #6e7958;
+    text-align: center;
+    box-sizing: border-box;
+    padding: 5px;
+}
+
+.warningMessageSubText {
+    background: #353535;
+    padding: 10px;
+    color: #66dc93; 
+    
+}
+
