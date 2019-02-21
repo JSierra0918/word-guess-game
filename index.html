@@ -6,20 +6,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
+    <link rel="stylesheet" href="./assets/css/reset.css">
+    <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
     <link rel="stylesheet" href="./assets/css/style.css">
- 
+    <link rel="stylesheet" href="./assets/css/flickerAnimation.css">
+
     <title>Word Guess Game</title>
 </head>
 
 <body>
 
+    <div class="container crt">
+        <h1 class="title">Word Guess Game</h1>
+        <div class="number-guesses"> Number of guesses left: <span id="lives"> </span></div>
+        <div id="answer" class="answer"> answer</div>
+        <div id="badGuesses" class="bad-guesses"> </div>
+        <div id="word" class=""> </div>
+    </div>
 
-    <h1>Word Guess Game</h1>
-    <div> Number of guesses left: <span id="lives"> </span></div>
-    <div id="answer"> answer</div>
-    <div id="badGuesses"> </div>
-    <div id="word"> </div>
-    
 
 
     <script src="./assets/javascript/game.js"></script>

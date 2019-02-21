@@ -1,0 +1,19 @@
+body {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 16px;
+    color: #14fd6d;
+    background-color: #031e11;
+}
+
+.container {
+  
+}
+
+h1 {
+    font-size: 5rem;
+}
+
+.title {
+ text-align: center;
+ margin-top: 5vh;
+}
