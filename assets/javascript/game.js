@@ -48,9 +48,13 @@ document.onkeyup = function (event) {
     var wrongLetter = function (letter) {
 
         // badGuesses.push(randomChoice[i]);
+        //check if the letter is used 
 
-        console.log("this is bad randomChoice[i] " + randomChoice[i]);
-        console.log("this is bad letter " + letter);
+        if (badGuesses.indexOf(letter) > -1) {
+            alert("You've already pressed that");
+            return;
+        }
+
         badGuesses.push(letter);
         document.getElementById("badGuesses").innerHTML = badGuesses.join(" ");
 
@@ -65,23 +69,22 @@ document.onkeyup = function (event) {
 
 
     //looking for the position of every letter
+    var found = false;
 
-    for (var i = 0; i < randomChoice[i]; i++) {
+
+    for (var i = 0; i < randomChoice.length; i++) {
         if (userInput === randomChoice[i]) {
-            
+            found = true;
             console.log("entered true statement here is the user input: " + userInput);
             answer[i] = userInput;
             document.getElementById("answer").innerHTML = answer.join(" ");
             console.log("Inside the true statement: " + userInput);
-        } else {
-            console.log("Wrong");
         }
     }
 
-
-    wrongLetter(userInput);
-
-
+    if (!found) {
+        wrongLetter(userInput);
+    }
 
 
 
