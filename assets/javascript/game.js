@@ -1,11 +1,11 @@
 /*---------Global Variables ------------*/
 
-var wordCHoices = ["Tetris",
+var wordChoices = ["Tetris",
     "Super Mario Bros",
-    "SimCity",
+    "Sonic the Hedgehog",
     "Super Mario Bros",
     "Donkey Kong",
-    "Defender",
+    "Pokemon",
     "The Legend of Zelda",
     "Rampage",
     "Metroid",
@@ -14,43 +14,45 @@ var wordCHoices = ["Tetris",
     "Mega Man",
     "Pac Man",
     "Dig Dug",
-    "Boulder Dash",
     "Final Fantasy",
     "Punch Out",
     "Duck Hunt",
+    "Streets of Rage",
     "Contra"
 ];
-var randomChoice = wordCHoices[Math.floor(Math.random() * wordCHoices.length)].toLowerCase();
+var randomChoice = wordChoices[Math.floor(Math.random() * wordChoices.length)].toLowerCase();
 var answer = [];
 var badGuesses = [];
 var lives;
 var warningMessage = document.getElementById("warningMessage");
 var warningMessageSubText = document.getElementById("warningMessageSubText");
 var welcomeScreen = document.getElementById("welcomeScreen");
+var myAudio = document.getElementById("myAudio");
 var playGameBool = true;
 /*--------- Reset function ------------*/
 
 function blankValues() {
 
-    // TODO: Turn this into a function that can reset all values
+    // reset variables
+    answer = [];
+    lives = 10;
+    badGuesses = [];
+    console.log(badGuesses);
+    //reinitialize randomChoice
+    randomChoice = wordChoices[Math.floor(Math.random() * wordChoices.length)].toLowerCase();
+
     //create blank spaces
     for (var i = 0; i < randomChoice.length; i++) {
 
-        answer[i] = "_";
-    }
 
-    // reset variables
-    lives = 10;
+        answer[i] = "_";
+
+    }
 
     //Print to the DOM
     document.getElementById("answer").innerHTML = answer.join(" ");
     document.getElementById("lives").innerHTML = lives;
     bgMusic(randomChoice);
-}
-
-/*--------- User is correct function ------------*/
-var rightLetter = function (letter) {
-
 }
 
 /*--------- User is wrong function ------------*/
@@ -61,7 +63,8 @@ var wrongLetter = function (letter) {
     //check if the letter is used 
 
     if (badGuesses.indexOf(letter) > -1) {
-        alert("You've already pressed that");
+            warningMessageSubText.innerHTML = "You've already pressed that!";
+            warningMessageAnimation();
         return;
     }
 
@@ -74,6 +77,7 @@ var wrongLetter = function (letter) {
 
     // if lives == 0 then game is over and reset value
     if (lives === 0) {
+        myAudio.setAttribute("src", " ");
         alert("You have lost!");
         blankValues();
 
@@ -82,18 +86,20 @@ var wrongLetter = function (letter) {
 
 /*----------Audio Function Area ------------*/
 function bgMusic(music) {
-    var randomMusic = new Audio();
-    var test = "assets/audio/" + music + ".ogg"
-    console.log(test);
+    //
+    music = randomChoice;
+    //var randomMusic Audio("./assets/audio/"+music+".ogg";
+    var randomMusic = "./assets/audio/" + music + ".ogg";
+    console.log(randomMusic);
 
-    // /"assets/audio/"+music+".mp3"
+
+    myAudio.setAttribute("src", randomMusic);
 
 }
 
 /*---------- warning Animation ------------*/
 
 function warningMessageAnimation() {
-    var elem = document.getElementById("animate");
     var pos = 0;
     var id = setInterval(frame, 5);
 
@@ -120,12 +126,17 @@ function playGame() {
         }
     }
 }
+
+
 /*----------call Function Area ------------*/
-playGame();
+//playGame();
 blankValues();
 
 /*--------- one key up Function ------------*/
 document.onkeyup = function (event) {
+
+
+    // /([A-Z])\w+/g
 
     //get user input
     var userInput = event.key.toLowerCase();
@@ -142,6 +153,7 @@ document.onkeyup = function (event) {
 
         //create a boolean to stop the wrongLetter function for continously looping
         var found = false;
+        warningMessage.style.opacity = "0";
 
         //index of every letter
         for (var i = 0; i < randomChoice.length; i++) {
@@ -173,22 +185,18 @@ document.onkeyup = function (event) {
                 console.log(checkAnswer + " " + randomChoice);
 
                 if (checkAnswer === randomChoice) {
-                    console.log("You've won, here are the results: " + checkAnswer + randomChoice);
+                    alert("You won!");
                     blankValues();
+
                 }
 
             }
 
         }
 
-        //check to see if the answer is equal to the random choice
-        if (answer.includes(randomChoice) === true) {
-            alert("You won!");
-        }
-
         //Check to see if the user has completed the word
         //This works, but can't remove underscore
-        console.log(answer.join("") + " randomchoice is " + randomChoice);
+      // console.log(answer.join("") + " randomchoice is " + randomChoice);
 
     }
 

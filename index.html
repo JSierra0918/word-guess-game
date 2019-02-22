@@ -18,7 +18,7 @@
 
     <div class="container crt">
         <h1 class="title">Word Guess Game</h1>
-        <div class="info-text"> Listen to the sound for a hint and guess the letter of the game title</div>
+        <div class="info-text"> Listen to the sound for a hint and guess the letter of the game title!</div>
         <div class="number-guesses">Lives: <span id="lives"> </span></div>
 
 
@@ -36,8 +36,11 @@
             </p>
         </div>
 
-
-        <div id="word" class=""> </div>
+<!-- hack to get chrome to play music -->
+        <iframe src="./assets/audio/silence.mp3" allow="autoplay" id="audio" style="display:none"></iframe>
+        <audio id="myAudio" autoplay loop controls>
+            <source  type="audio/ogg">
+        </audio>
     </div>
 
 
