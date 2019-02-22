@@ -7,20 +7,27 @@ var wordCHoices = ["Tetris",
     "Donkey Kong",
     "Defender",
     "The Legend of Zelda",
-    "Tempest",
+    "Rampage",
     "Metroid",
     "Prince of Persia",
     "R Type",
     "Mega Man",
     "Pac Man",
+    "Dig Dug",
     "Boulder Dash",
+    "Final Fantasy",
+    "Punch Out",
+    "Duck Hunt",
     "Contra"
 ];
 var randomChoice = wordCHoices[Math.floor(Math.random() * wordCHoices.length)].toLowerCase();
 var answer = [];
 var badGuesses = [];
 var lives;
-
+var warningMessage = document.getElementById("warningMessage");
+var warningMessageSubText = document.getElementById("warningMessageSubText");
+var welcomeScreen = document.getElementById("welcomeScreen");
+var playGameBool = true;
 /*--------- Reset function ------------*/
 
 function blankValues() {
@@ -38,6 +45,7 @@ function blankValues() {
     //Print to the DOM
     document.getElementById("answer").innerHTML = answer.join(" ");
     document.getElementById("lives").innerHTML = lives;
+    bgMusic(randomChoice);
 }
 
 /*--------- User is correct function ------------*/
@@ -75,30 +83,46 @@ var wrongLetter = function (letter) {
 /*----------Audio Function Area ------------*/
 function bgMusic(music) {
     var randomMusic = new Audio();
-    var test = "assets/audio/" + music + ".mp3"
+    var test = "assets/audio/" + music + ".ogg"
     console.log(test);
 
     // /"assets/audio/"+music+".mp3"
 
 }
 
-/*----------Check if Arrays Match Function Area ------------*/
+/*---------- warning Animation ------------*/
 
-function arraysEqual(arr1, arr2) {
-    if (arr1.length !== arr2.length)
-        return false;
-    for (var i = arr1.length; i--;) {
-        if (arr1[i] !== arr2[i])
-            return false;
+function warningMessageAnimation() {
+    var elem = document.getElementById("animate");
+    var pos = 0;
+    var id = setInterval(frame, 5);
+
+    function frame() {
+        if (pos == 5) {
+            clearInterval(id);
+        } else {
+            pos++;
+            warningMessage.style.bottom = pos + "vh";
+            warningMessage.style.opacity = "20";
+        }
     }
-
-    return true + console.log(arraysEqual + true);
 }
 
-/*----------call Function Area ------------*/
+/*---------- Play Game function ------------*/
 
+function playGame() {
+    if (!playGameBool) {
+
+        document.onkeyup = function (event) {
+
+            playGameBool = true;
+            welcomeScreen.style.display = "none";
+        }
+    }
+}
+/*----------call Function Area ------------*/
+playGame();
 blankValues();
-bgMusic(randomChoice);
 
 /*--------- one key up Function ------------*/
 document.onkeyup = function (event) {
@@ -106,13 +130,15 @@ document.onkeyup = function (event) {
     //get user input
     var userInput = event.key.toLowerCase();
     var userInputKeyCode = event.keyCode;
-    
+
 
     // check to see if the user input a character from A-Z
     if (userInputKeyCode > 90 || userInputKeyCode < 57) {
-        alert("Please press a key of A-Z");
-    } 
-    else {
+        warningMessageSubText.innerHTML = " Please press a leter from A-Z";
+        //warningMessage.setAttribute("class", warningMessage.getAttribute("class")+ " fade-in");
+        warningMessageAnimation();
+
+    } else {
 
         //create a boolean to stop the wrongLetter function for continously looping
         var found = false;
@@ -135,6 +161,7 @@ document.onkeyup = function (event) {
             wrongLetter(userInput);
         }
 
+        //If you guess all the correct words!
         if (found) {
             for (var i = 0; i < randomChoice.length; i++) {
                 //answer is an array
@@ -147,6 +174,7 @@ document.onkeyup = function (event) {
 
                 if (checkAnswer === randomChoice) {
                     console.log("You've won, here are the results: " + checkAnswer + randomChoice);
+                    blankValues();
                 }
 
             }
