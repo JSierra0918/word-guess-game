@@ -3,7 +3,7 @@
 var wordCHoices = ["Tetris",
     "Super Mario Bros",
     "SimCity",
-    "Super Mario Bros ",
+    "Super Mario Bros",
     "Donkey Kong",
     "Defender",
     "The Legend of Zelda",
@@ -29,12 +29,7 @@ function blankValues() {
     //create blank spaces
     for (var i = 0; i < randomChoice.length; i++) {
 
-        if (randomChoice[i] === " "){
-            answer[i] = " ";
-        }else {
-            answer[i] = "_";
-        }
-        
+        answer[i] = "_";
     }
 
     // reset variables
@@ -87,7 +82,18 @@ function bgMusic(music) {
 
 }
 
+/*----------Check if Arrays Match Function Area ------------*/
 
+function arraysEqual(arr1, arr2) {
+    if (arr1.length !== arr2.length)
+        return false;
+    for (var i = arr1.length; i--;) {
+        if (arr1[i] !== arr2[i])
+            return false;
+    }
+
+    return true + console.log(arraysEqual + true);
+}
 
 /*----------call Function Area ------------*/
 
@@ -100,11 +106,13 @@ document.onkeyup = function (event) {
     //get user input
     var userInput = event.key.toLowerCase();
     var userInputKeyCode = event.keyCode;
+    
 
     // check to see if the user input a character from A-Z
     if (userInputKeyCode > 90 || userInputKeyCode < 57) {
         alert("Please press a key of A-Z");
-    } else {
+    } 
+    else {
 
         //create a boolean to stop the wrongLetter function for continously looping
         var found = false;
@@ -118,12 +126,36 @@ document.onkeyup = function (event) {
                 answer[i] = userInput;
                 document.getElementById("answer").innerHTML = answer.join(" ");
                 //console.log("Inside the true statement: " + userInput);
+                console.log(answer.includes(randomChoice));
             }
         }
 
         //user is wrong
         if (!found) {
             wrongLetter(userInput);
+        }
+
+        if (found) {
+            for (var i = 0; i < randomChoice.length; i++) {
+                //answer is an array
+                var checkAnswer = answer.toString();
+                checkAnswer = checkAnswer.replace(/,/g, "");
+                checkAnswer = checkAnswer.replace(/_/g, " ");
+
+
+                console.log(checkAnswer + " " + randomChoice);
+
+                if (checkAnswer === randomChoice) {
+                    console.log("You've won, here are the results: " + checkAnswer + randomChoice);
+                }
+
+            }
+
+        }
+
+        //check to see if the answer is equal to the random choice
+        if (answer.includes(randomChoice) === true) {
+            alert("You won!");
         }
 
         //Check to see if the user has completed the word
