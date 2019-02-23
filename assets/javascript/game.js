@@ -29,6 +29,7 @@ var warningMessageSubText = document.getElementById("warningMessageSubText");
 var welcomeScreen = document.getElementById("welcomeScreen");
 var myAudio = document.getElementById("myAudio");
 var playGameBool = true;
+
 /*--------- Reset function ------------*/
 
 function blankValues() {
@@ -37,6 +38,8 @@ function blankValues() {
     answer = [];
     lives = 10;
     badGuesses = [];
+    document.getElementById("badGuesses").innerHTML = "";
+
     console.log(badGuesses);
     //reinitialize randomChoice
     randomChoice = wordChoices[Math.floor(Math.random() * wordChoices.length)].toLowerCase();
@@ -44,13 +47,19 @@ function blankValues() {
     //create blank spaces
     for (var i = 0; i < randomChoice.length; i++) {
 
+        //check  if the indexOf is a space and if it is the answer equals that array
+        if (randomChoice[i] === " ") {
+            console.log(randomChoice.indexOf(" "));
+            answer[i] = " ";
+        } else {
 
-        answer[i] = "_";
+            answer[i] = "_";
+        }
 
     }
 
     //Print to the DOM
-    document.getElementById("answer").innerHTML = answer.join(" ");
+    document.getElementById("answer").innerHTML = answer.join("");
     document.getElementById("lives").innerHTML = lives;
     bgMusic(randomChoice);
 }
@@ -63,8 +72,8 @@ var wrongLetter = function (letter) {
     //check if the letter is used 
 
     if (badGuesses.indexOf(letter) > -1) {
-            warningMessageSubText.innerHTML = "You've already pressed that!";
-            warningMessageAnimation();
+        warningMessageSubText.innerHTML = "You've already pressed that!";
+        warningMessageAnimation();
         return;
     }
 
@@ -144,7 +153,7 @@ document.onkeyup = function (event) {
 
 
     // check to see if the user input a character from A-Z
-    if (userInputKeyCode > 90 || userInputKeyCode < 57) {
+    if (userInputKeyCode > 90 || userInputKeyCode < 57 || userInputKeyCode !== 57) {
         warningMessageSubText.innerHTML = " Please press a leter from A-Z";
         //warningMessage.setAttribute("class", warningMessage.getAttribute("class")+ " fade-in");
         warningMessageAnimation();
@@ -162,7 +171,7 @@ document.onkeyup = function (event) {
                 found = true;
                 //console.log("entered true statement here is the user input: " + userInput);
                 answer[i] = userInput;
-                document.getElementById("answer").innerHTML = answer.join(" ");
+                document.getElementById("answer").innerHTML = answer.join("");
                 //console.log("Inside the true statement: " + userInput);
                 console.log(answer.includes(randomChoice));
             }
@@ -175,20 +184,23 @@ document.onkeyup = function (event) {
 
         //If you guess all the correct words!
         if (found) {
+            var checkAnswer = answer.toString();
+
             for (var i = 0; i < randomChoice.length; i++) {
                 //answer is an array
-                var checkAnswer = answer.toString();
+                console.log(checkAnswer);
                 checkAnswer = checkAnswer.replace(/,/g, "");
                 checkAnswer = checkAnswer.replace(/_/g, " ");
 
 
                 console.log(checkAnswer + " " + randomChoice);
 
-                if (checkAnswer === randomChoice) {
+            }
+            if (checkAnswer === randomChoice) {
+                setTimeout(function () {
                     alert("You won!");
                     blankValues();
-
-                }
+                }, 250);
 
             }
 
@@ -196,7 +208,7 @@ document.onkeyup = function (event) {
 
         //Check to see if the user has completed the word
         //This works, but can't remove underscore
-      // console.log(answer.join("") + " randomchoice is " + randomChoice);
+        // console.log(answer.join("") + " randomchoice is " + randomChoice);
 
     }
 
