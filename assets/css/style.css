@@ -49,6 +49,10 @@ body {
     color: rgba(255, 0, 0, 0.5);
 }
 
+#welcomeScreen {
+    text-align: center;
+}
+
 .warningMessage{
     
     text-align: center;

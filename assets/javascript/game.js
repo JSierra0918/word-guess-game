@@ -131,8 +131,12 @@ function playGame() {
     document.onkeyup = function (event) {
         var userInputKeyCode = event.keyCode;
         if (userInputKeyCode === 32) {
-            playGameBool = true;
-            welcomeScreen.style.display = "none";
+
+            setTimeout (function (){
+                playGameBool = true;
+                welcomeScreen.style.display = "none";
+            }),250;
+         
         }
         if (playGameBool) {
             
@@ -143,7 +147,7 @@ function playGame() {
                 //get user input
                 var userInput = event.key.toLowerCase();
                 //var userInputKeyCode = event.keyCode;
-                if (userInputKeyCode === 65) {
+                if ( userInputKeyCode === 116 || userInputKeyCode === 123) {
                     return ;
                 }
         
