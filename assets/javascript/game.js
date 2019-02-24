@@ -23,7 +23,7 @@ var wordChoices = ["Tetris",
 var randomChoice = wordChoices[Math.floor(Math.random() * wordChoices.length)].toLowerCase();
 var answer = [];
 var badGuesses = [];
-var lives;
+var lives = 7;
 var warningMessage = document.getElementById("warningMessage");
 var warningMessageSubText = document.getElementById("warningMessageSubText");
 var welcomeScreen = document.getElementById("welcomeScreen");
@@ -36,11 +36,10 @@ function blankValues() {
 
     // reset variables
     answer = [];
-    lives = 10;
+    lives = 7;
     badGuesses = [];
     document.getElementById("badGuesses").innerHTML = "";
 
-    console.log(badGuesses);
     //reinitialize randomChoice
     randomChoice = wordChoices[Math.floor(Math.random() * wordChoices.length)].toLowerCase();
 
@@ -49,7 +48,6 @@ function blankValues() {
 
         //check  if the indexOf is a space and if it is the answer equals that array
         if (randomChoice[i] === " ") {
-            console.log(randomChoice.indexOf(" "));
             answer[i] = " ";
         } else {
 
@@ -89,7 +87,6 @@ var wrongLetter = function (letter) {
         myAudio.setAttribute("src", " ");
         alert("You have lost!");
         blankValues();
-
     }
 }
 
@@ -101,9 +98,7 @@ function bgMusic(music) {
     var randomMusic = "./assets/audio/" + music + ".ogg";
     console.log(randomMusic);
 
-
     myAudio.setAttribute("src", randomMusic);
-
 }
 
 /*---------- warning Animation ------------*/
@@ -123,177 +118,85 @@ function warningMessageAnimation() {
     }
 }
 
+/*----------call Function Area ------------*/
+blankValues();
+playGame();
+
 /*---------- Play Game function ------------*/
 
 function playGame() {
-
+    
 
     document.onkeyup = function (event) {
         var userInputKeyCode = event.keyCode;
         if (userInputKeyCode === 32) {
 
-            setTimeout (function (){
+            setTimeout(function () {
                 playGameBool = true;
                 welcomeScreen.style.display = "none";
-            }),250;
-         
+            }), 250;
+
         }
         if (playGameBool) {
-            
-        
-        
-                // /([A-Z])\w+/g
-        
-                //get user input
-                var userInput = event.key.toLowerCase();
-                //var userInputKeyCode = event.keyCode;
-                if ( userInputKeyCode === 116 || userInputKeyCode === 123) {
-                    return ;
+
+            //get user input
+            var userInput = event.key.toLowerCase();
+
+            //if user presses F5 or F12 do nothing
+            if (userInputKeyCode === 116 || userInputKeyCode === 123) {
+                return;
+            }
+
+            // check to see if the user input a character from A-Z
+            if (userInputKeyCode > 90 || userInputKeyCode < 57) {
+                warningMessageSubText.innerHTML = " Please press a leter from A-Z";
+                //warningMessage.setAttribute("class", warningMessage.getAttribute("class")+ " fade-in");
+                warningMessageAnimation();
+
+            } else {
+
+                //create a boolean to stop the wrongLetter function for continously looping
+                var found = false;
+                warningMessage.style.opacity = "0";
+
+                //index of every letter
+                for (var i = 0; i < randomChoice.length; i++) {
+                    if (userInput === randomChoice[i]) {
+
+                        found = true;
+                        //console.log("entered true statement here is the user input: " + userInput);
+                        answer[i] = userInput;
+                        document.getElementById("answer").innerHTML = answer.join("");
+                    }
                 }
-        
-                // check to see if the user input a character from A-Z
-                if (userInputKeyCode > 90 || userInputKeyCode < 57) {
-                    warningMessageSubText.innerHTML = " Please press a leter from A-Z";
-                    //warningMessage.setAttribute("class", warningMessage.getAttribute("class")+ " fade-in");
-                    warningMessageAnimation();
-        
-                } else {
-        
-                    //create a boolean to stop the wrongLetter function for continously looping
-                    var found = false;
-                    warningMessage.style.opacity = "0";
-        
-                    //index of every letter
+
+                //user is wrong
+                if (!found) {
+                    wrongLetter(userInput);
+                }
+
+                //If you guess all the correct words!
+                if (found) {
+                    var checkAnswer = answer.toString();
+
                     for (var i = 0; i < randomChoice.length; i++) {
-                        if (userInput === randomChoice[i]) {
-        
-                            found = true;
-                            //console.log("entered true statement here is the user input: " + userInput);
-                            answer[i] = userInput;
-                            document.getElementById("answer").innerHTML = answer.join("");
-                            //console.log("Inside the true statement: " + userInput);
-                            console.log(answer.includes(randomChoice));
-                        }
+                        //answer is an array
+                        console.log(checkAnswer);
+                        checkAnswer = checkAnswer.replace(/,/g, "");
+                        checkAnswer = checkAnswer.replace(/_/g, " ");
                     }
-        
-                    //user is wrong
-                    if (!found) {
-                        wrongLetter(userInput);
+                    if (checkAnswer === randomChoice) {
+                        setTimeout(function () {
+                            alert("You won!");
+                            blankValues();
+                        }, 250);
+
                     }
-        
-                    //If you guess all the correct words!
-                    if (found) {
-                        var checkAnswer = answer.toString();
-        
-                        for (var i = 0; i < randomChoice.length; i++) {
-                            //answer is an array
-                            console.log(checkAnswer);
-                            checkAnswer = checkAnswer.replace(/,/g, "");
-                            checkAnswer = checkAnswer.replace(/_/g, " ");
-        
-        
-                            console.log(checkAnswer + " " + randomChoice);
-        
-                        }
-                        if (checkAnswer === randomChoice) {
-                            setTimeout(function () {
-                                alert("You won!");
-                                blankValues();
-                            }, 250);
-        
-                        }
-        
-                    }
-        
-                    //Check to see if the user has completed the word
-                    //This works, but can't remove underscore
-                    // console.log(answer.join("") + " randomchoice is " + randomChoice);
-        
+
                 }
-        
-            
+
+            }
         }
     }
 
 }
-
-
-/*----------call Function Area ------------*/
-//playGame();
-blankValues();
-playGame();
-
-/*--------- one key up Function ------------*/
-// if (playGameBool) {
-//     document.onkeyup = function (event) {
-
-
-//         // /([A-Z])\w+/g
-
-//         //get user input
-//         var userInput = event.key.toLowerCase();
-//         var userInputKeyCode = event.keyCode;
-
-
-//         // check to see if the user input a character from A-Z
-//         if (userInputKeyCode > 90 || userInputKeyCode < 57 || userInputKeyCode !== 57) {
-//             warningMessageSubText.innerHTML = " Please press a leter from A-Z";
-//             //warningMessage.setAttribute("class", warningMessage.getAttribute("class")+ " fade-in");
-//             warningMessageAnimation();
-
-//         } else {
-
-//             //create a boolean to stop the wrongLetter function for continously looping
-//             var found = false;
-//             warningMessage.style.opacity = "0";
-
-//             //index of every letter
-//             for (var i = 0; i < randomChoice.length; i++) {
-//                 if (userInput === randomChoice[i]) {
-
-//                     found = true;
-//                     //console.log("entered true statement here is the user input: " + userInput);
-//                     answer[i] = userInput;
-//                     document.getElementById("answer").innerHTML = answer.join("");
-//                     //console.log("Inside the true statement: " + userInput);
-//                     console.log(answer.includes(randomChoice));
-//                 }
-//             }
-
-//             //user is wrong
-//             if (!found) {
-//                 wrongLetter(userInput);
-//             }
-
-//             //If you guess all the correct words!
-//             if (found) {
-//                 var checkAnswer = answer.toString();
-
-//                 for (var i = 0; i < randomChoice.length; i++) {
-//                     //answer is an array
-//                     console.log(checkAnswer);
-//                     checkAnswer = checkAnswer.replace(/,/g, "");
-//                     checkAnswer = checkAnswer.replace(/_/g, " ");
-
-
-//                     console.log(checkAnswer + " " + randomChoice);
-
-//                 }
-//                 if (checkAnswer === randomChoice) {
-//                     setTimeout(function () {
-//                         alert("You won!");
-//                         blankValues();
-//                     }, 250);
-
-//                 }
-
-//             }
-
-//             //Check to see if the user has completed the word
-//             //This works, but can't remove underscore
-//             // console.log(answer.join("") + " randomchoice is " + randomChoice);
-
-//         }
-
-//     }
-// }

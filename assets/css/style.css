@@ -31,6 +31,31 @@ body {
     font-size: 1.3vw;
 }
 
+/* #heart-outline {
+    width: 30px;
+    height: 30px;
+    background: url(../images/heart.png) no-repeat center center;
+    background-size: 20px;
+    overflow: hidden;
+} */
+
+.number-guesses::before {
+    content: '';
+    display: inline-block;
+    height: 30px;
+    width: 30px;
+    position: relative;
+    top: 5px;
+    background: url(../images/heartIcon-01.svg) no-repeat;
+    overflow: hidden;
+}
+
+#svg-object {
+    height: 30px;
+    width: 30px;
+    overflow: hidden;
+}
+
 .wrapper {
     text-align: center;
     margin-top: 20vh;
@@ -51,6 +76,7 @@ body {
 
 #welcomeScreen {
     text-align: center;
+    color: #d9dc66;
 }
 
 .warningMessage{
@@ -126,5 +152,10 @@ body {
 
     .bad-guesses {
         font-size: 2.3vw;
+    }
+
+    .number-guesses::before {
+        top: 0px;
+        
     }
 }
