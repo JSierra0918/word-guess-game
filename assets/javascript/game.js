@@ -28,7 +28,11 @@ var warningMessage = document.getElementById("warningMessage");
 var warningMessageSubText = document.getElementById("warningMessageSubText");
 var welcomeScreen = document.getElementById("welcomeScreen");
 var myAudio = document.getElementById("myAudio");
+var wins =  document.getElementById("wins");
+var losses =  document.getElementById("losses");
 var playGameBool = false;
+var winsCount = 0;
+var lossesCount = 0
 
 /*--------- Reset function ------------*/
 
@@ -59,6 +63,8 @@ function blankValues() {
     //Print to the DOM
     document.getElementById("answer").innerHTML = answer.join("");
     document.getElementById("lives").innerHTML = lives;
+    document.getElementById("wins").innerHTML = winsCount;
+    document.getElementById("losses").innerHTML = lossesCount;
     bgMusic(randomChoice);
 }
 
@@ -80,11 +86,16 @@ var wrongLetter = function (letter) {
 
     // update lives and display
     --lives;
+
+    
     document.getElementById("lives").innerHTML = lives;
+    losses.innerHTML = lossesCount;
 
     // if lives == 0 then game is over and reset value
     if (lives === 0) {
         myAudio.setAttribute("src", " ");
+        ++lossesCount;
+        losses.innerHTML = lossesCount
         alert("You have lost!");
         blankValues();
     }
@@ -108,7 +119,7 @@ function warningMessageAnimation() {
     var id = setInterval(frame, 5);
 
     function frame() {
-        if (pos == 5) {
+        if (pos === 5) {
             clearInterval(id);
         } else {
             pos++;
@@ -125,7 +136,7 @@ playGame();
 /*---------- Play Game function ------------*/
 
 function playGame() {
-    
+
 
     document.onkeyup = function (event) {
         var userInputKeyCode = event.keyCode;
@@ -186,7 +197,10 @@ function playGame() {
                         checkAnswer = checkAnswer.replace(/_/g, " ");
                     }
                     if (checkAnswer === randomChoice) {
-                        setTimeout(function () {
+                       
+                        ++winsCount;
+                        wins.innerHTML = winsCount;
+                        setTimeout(function () {             
                             alert("You won!");
                             blankValues();
                         }, 250);

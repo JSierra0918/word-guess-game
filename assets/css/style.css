@@ -26,9 +26,19 @@ body {
 .number-guesses {
     position: relative;
     top: 5vW;
-    left: 4vw;
+    left: 7vw;
     color: yellow;
     font-size: 1.3vw;
+    margin-bottom: 10px;
+}
+
+.wins, .losses {
+    position: relative;
+    top: 5vW;
+    left: 8.5vw;
+    color: yellow;
+    font-size: 1.3vw;
+    margin-bottom: 10px;
 }
 
 /* #heart-outline {
@@ -42,10 +52,9 @@ body {
 .number-guesses::before {
     content: '';
     display: inline-block;
-    height: 30px;
-    width: 30px;
+    height: 15px;
+    width: 15px;
     position: relative;
-    top: 5px;
     background: url(../images/heartIcon-01.svg) no-repeat;
     overflow: hidden;
 }
@@ -138,12 +147,31 @@ body {
 
     }
 
-    .number-guesses {
+    .number-guesses, .wins, .losses {
         display: flex;
         align-items: center;
         justify-content: center;
-        height: 10vh;
+        height: 3vh;
         font-size: 4vw;
+    }
+
+    .losses {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 3vh;
+        font-size: 4vw;
+        margin-left: 20px;
+
+    }
+    .wins {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 2vh;
+        font-size: 4vw;
+        margin-right: 16px;
+
     }
 
     .warningMessage h6, .warningMessageSubText {
