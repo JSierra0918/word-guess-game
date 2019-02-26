@@ -34,7 +34,7 @@ body {
 
 .wins, .losses {
     position: relative;
-    top: 5vW;
+    top: 25vW;
     left: 8.5vw;
     color: yellow;
     font-size: 1.3vw;
@@ -156,12 +156,13 @@ body {
     }
 
     .losses {
-        display: flex;
+        display: flex;  
         align-items: center;
         justify-content: center;
         height: 3vh;
         font-size: 4vw;
         margin-left: 20px;
+        top: 5vh;
 
     }
     .wins {
@@ -171,6 +172,7 @@ body {
         height: 2vh;
         font-size: 4vw;
         margin-right: 16px;
+        top: 5vh;
 
     }
 
