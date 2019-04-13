@@ -107,7 +107,7 @@ function bgMusic(music) {
     music = randomChoice;
     //var randomMusic Audio("./assets/audio/"+music+".ogg";
     var randomMusic = "./assets/audio/" + music + ".ogg";
-    console.log(randomMusic);
+    // console.log(randomMusic);
 
     myAudio.setAttribute("src", randomMusic);
 }
@@ -192,7 +192,7 @@ function playGame() {
 
                     for (var i = 0; i < randomChoice.length; i++) {
                         //answer is an array
-                        console.log(checkAnswer);
+                        // console.log(checkAnswer);
                         checkAnswer = checkAnswer.replace(/,/g, "");
                         checkAnswer = checkAnswer.replace(/_/g, " ");
                     }
