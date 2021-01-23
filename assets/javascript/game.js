@@ -2,7 +2,6 @@
 
 var wordChoices = ['Tetris', 'Super Mario Bros', 'Sonic the Hedgehog', 'Super Mario Bros', 'Donkey Kong', 'Pokemon', 'The Legend of Zelda', 'Rampage', 'Metroid', 'Prince of Persia', 'R-Type', 'Mega Man', 'Pac Man', 'Dig Dug', 'Final Fantasy', 'Punch Out', 'Duck Hunt', 'Streets of Rage', 'Contra'];
 var randomChoice = wordChoices[Math.floor(Math.random() * wordChoices.length)];
-console.log('randomChoice:', randomChoice)
 var randomChoiceIndex = wordChoices.indexOf(randomChoice);
 var answer = [];
 var badGuesses = [];
@@ -26,24 +25,19 @@ function resetValues() {
 	document.getElementById('badGuesses').innerHTML = '';
 
     //removed current item
-    console.log(randomChoiceIndex);
     wordChoices.splice(wordChoices.indexOf(randomChoiceIndex));
 
     //reinitialize randomChoice
     randomChoice = wordChoices[Math.floor(Math.random() * wordChoices.length)];
-	randomChoiceIndex = wordChoices.indexOf(randomChoice);
-
-    console.log(wordChoices);
+    randomChoiceIndex = wordChoices.indexOf(randomChoice);
 
     //fill blanks
     fillBlanks(randomChoice);
-    console.log(answer);
-	//Print to the DOM
 
+	//Print to the DOM
 	document.getElementById('lives').innerHTML = lives;
 	document.getElementById('wins').innerHTML = winsCount;
     document.getElementById('losses').innerHTML = lossesCount;
-    console.log(answer);
 	bgMusic(randomChoice);
 }
 
@@ -79,12 +73,8 @@ var wrongLetter = function (letter) {
 
 /*----------Audio Function Area ------------*/
 function bgMusic(music) {
-	//
 	music = randomChoice;
-	//var randomMusic Audio("./assets/audio/"+music+".ogg";
 	var randomMusic = './assets/audio/' + music + '.ogg';
-	// console.log(randomMusic);
-
 	myAudio.setAttribute('src', randomMusic);
 }
 
@@ -162,7 +152,6 @@ function playGame() {
 				for (var i = 0; i < randomChoice.length; i++) {
 					if (userInput === randomChoice[i].toLowerCase()) {
 						found = true;
-						//console.log("entered true statement here is the user input: " + userInput);
 						answer[i] = userInput;
 						document.getElementById('answer').innerHTML = answer.join('');
 					}
@@ -179,14 +168,12 @@ function playGame() {
 
 					for (var i = 0; i < randomChoice.length; i++) {
 						//answer is an array
-						// console.log(checkAnswer);
 						checkAnswer = checkAnswer.replace(/,/g, '');
 						checkAnswer = checkAnswer.replace(/_/g, ' ');
 					}
 					if (checkAnswer === randomChoice.toLowerCase()) {
 						++winsCount;
 						wins.innerHTML = winsCount;
-						console.log('wordChoices:', wordChoices)
 						setTimeout(function () {
 							alert('You won!');
 							resetValues();
